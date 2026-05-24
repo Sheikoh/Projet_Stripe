@@ -2,7 +2,7 @@
 
 ## OLTP Data Model
 
-![alt text](image.png)
+![alt text](image-8.png)
 
 ### Ensuring ACID properties
 
@@ -46,7 +46,7 @@ Additionally, must handle failover
 
 ## OLAP Data Model
 
-![alt text](image-2.png)
+![alt text](image-9.png)
 
 ### Handling requests
 
@@ -74,7 +74,7 @@ The IDs used in the OLTP database are reused in the NoSQL database to ensure tra
 
 ### Collections
 
-Three collections are used:
+Five collections are used:
 
 - transaction_events: 
 (embedded device + fraud signals): reference entities (customer and merchants) and embed small context (rate at transaction, device, geo, fraud_signals, etc.)
