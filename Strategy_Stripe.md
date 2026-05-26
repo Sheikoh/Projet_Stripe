@@ -6,16 +6,16 @@
 
 ### Ensuring ACID properties
 
-Atomicity
+**Atomicity**
 
 enforced through the use of a "BEGIN/COMMIT"
 to force all the actions in parallel (e.g. table update + insert into table, for example)
 
-Consistency
+**Consistency**
 
 use of "ADD CONSTRAINT" to ensure the value added to the tables are correct and follow the rules.
 
-Isolation
+**Isolation**
 
 ![alt text](image-1.png)
 
@@ -38,7 +38,7 @@ BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
   UPDATE merchant_accounts SET balance = balance - $2 WHERE id = $1;
 COMMIT;
 
-Durability
+**Durability**
 
 Base is automatically covered through PostgreSQL's WAL.
 But synchronous commits must be configured specifically for distributed/replicated setup.
@@ -106,7 +106,7 @@ Kafka will distribute data to the MongoDB and Snowflake, as well as using Redis 
 PII - Personal Identifiable Information
 PAN - Primary account number
 
-Both of these categories are encrypted before they enter the system.
+Both of these categories are encrypted **before** they enter the system.
 Then, all informations are encrypted again at rest (in the DBs) and in transit. 
 To minimise the data leakage probabilities, the accesses are given only when necessary.
 The logs are collected in an immutable way (e.g. Compliance mode on s3), with no possibility to delete them for a period of time. The infrastructure, threats and data quality are considered as three separate patterns to specialise each tool. 
