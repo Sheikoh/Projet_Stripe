@@ -1,5 +1,10 @@
 # Stripe Project - Strategy and decision explanation
 
+github link: https://github.com/Sheikoh/Projet_Stripe.git
+
+*This file presents the main strategy, and the file Queries.md presents the Queries examples*
+
+
 ## OLTP Data Model
 
 ![alt text](image-8.png)
