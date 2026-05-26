@@ -44,6 +44,10 @@ Base is automatically covered through PostgreSQL's WAL.
 But synchronous commits must be configured specifically for distributed/replicated setup.
 Additionally, must handle failover
 
+### Security
+
+
+
 ## OLAP Data Model
 
 ![alt text](image-9.png)
@@ -95,14 +99,37 @@ Data are written in an OLTP base, which also populate an outbox_events table. Th
 
 ![alt text](image-5.png)
 
-Kafka will distribute data to the MongoDB and Snowflake, as well as using Redis for the cache. It will also trigger the ML inference system.
+Kafka will distribute data to the MongoDB and Snowflake, as well as using Redis for the cache. It will also trigger the ML inference system, using the Redis cached data.
 
 ## Security and Compliance plan
 
-Encryption is put in place for all elements, especially for paiement information. The accesses are given only when necessary.
-The logs are collected in an immutable way, with no possibility to delete them for a period of time. the infrastructure, threats and data quality are considered as three separate patterns to specialise each tool. 
+PII - Personal Identifiable Information
+PAN - Primary account number
+
+Both of these categories are encrypted before they enter the system.
+Then, all informations are encrypted again at rest (in the DBs) and in transit. 
+To minimise the data leakage probabilities, the accesses are given only when necessary.
+The logs are collected in an immutable way (e.g. Compliance mode on s3), with no possibility to delete them for a period of time. The infrastructure, threats and data quality are considered as three separate patterns to specialise each tool. 
 
 Overall, everything is made to comply to the legal requirements (GDPR, CCPA and PCI-DSS)
+
+### Sécurité des données
+
+| Risks                    | Safety measure                             | Supervisor           |
+| ------------------------ | ------------------------------------------ | -------------------- |
+| data leaks               | Encryption AES-256 + TLS                   | System admin         |
+| Unauthorized access      | RBAC (Role-Based Access Control)           | Security director    |
+| Data loss                | Sauvegardes quotidiennes + plan de reprise | DB Admin             |
+| Fraudulent manipulation  | Audit logs et alertes automatisées         | Data Engineer        |
+
+### Conformité RGPD
+
+- **Minimization** : Only the useful data are stored.
+- **Anonymization** : les identifiants personnels sont masqués avant usage analytique.
+- **Explicit consent** : Mandatory for IoT and social data.
+- **Right to oblivion** : Comprehensive deletion upon request.
+- **Logging RGPD** : Logging of each user access.
+
 
 
 ## Machine learning integration strategy
